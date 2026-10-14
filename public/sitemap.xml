@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://tiscofficial.com/th/</loc><xhtml:link rel="alternate" hreflang="en" href="https://tiscofficial.com/en/"/><changefreq>monthly</changefreq></url>
+  <url><loc>https://tiscofficial.com/en/</loc><xhtml:link rel="alternate" hreflang="th" href="https://tiscofficial.com/th/"/><changefreq>monthly</changefreq></url>
+  <url><loc>https://tiscofficial.com/th/statistic/</loc><xhtml:link rel="alternate" hreflang="en" href="https://tiscofficial.com/en/statistic/"/></url>
+  <url><loc>https://tiscofficial.com/en/statistic/</loc><xhtml:link rel="alternate" hreflang="th" href="https://tiscofficial.com/th/statistic/"/></url>
+  <url><loc>https://tiscofficial.com/th/our-team/</loc><xhtml:link rel="alternate" hreflang="en" href="https://tiscofficial.com/en/our-team/"/></url>
+  <url><loc>https://tiscofficial.com/en/our-team/</loc><xhtml:link rel="alternate" hreflang="th" href="https://tiscofficial.com/th/our-team/"/></url>
+</urlset>
