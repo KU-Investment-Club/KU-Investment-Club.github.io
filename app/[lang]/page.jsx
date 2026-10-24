@@ -1,93 +1,90 @@
 import Link from "next/link";
 import Gallery from "@/components/Gallery";
-import { STATS, SPONSORS, SPONSORS_MAIN } from "@/lib/data";
+import { GALLERY, SPONSORS, SPONSORS_MAIN } from "@/lib/data";
 import { getDict } from "@/lib/i18n";
 
-const fmt = n => n.toLocaleString("en-US");
 const Logo = ([n, f]) => <div title={n} key={f}><img src={`/assets/sponsors/${f}`} alt={n} loading="lazy" /></div>;
 
 export default async function Home({ params }) {
   const { lang } = await params;
   const D = getDict(lang), base = `/${lang}`;
-  const tick = [["APPLICANTS", STATS.applicants], ["TEAMS", STATS.teams], ["UNIVERSITIES", STATS.universities],
-    ["FINALISTS", STATS.finalists], ["TRACK A", "DR"], ["TRACK B", "SET"], ["TISC", 2026]];
-  const tape = tick.map(([k, v]) => <span key={k}>{k} <b>{typeof v === "number" ? fmt(v) : v}</b> <i>▲</i></span>);
 
   return (
     <>
-      <div className="hero">
-        <div className="wrap">
-          <small className="eyebrow">{D.hero.eyebrow}</small>
+      <section className="hero">
+        <img src="/assets/hero.jpg" alt="" fetchPriority="high" />
+        <div className="hero-in">
+          <p className="eyebrow">{D.hero.eyebrow}</p>
           <h1>TISC <span>2026</span></h1>
           <p className="motto">“Invest Intelligently, Lead Globally”</p>
-          <p>{D.hero.lead}</p>
-          <div className="btns">
-            <Link className="btn o" href={`${base}/statistic/`}>{D.hero.results}</Link>
-            <a className="btn ghost" href="#gallery">{D.hero.photos}</a>
-          </div>
-          <p className="presented">{D.hero.presented} <img src="/assets/sponsors/set.png" alt="SET" /><img src="/assets/sponsors/bualuang.png" alt="Bualuang Securities" /></p>
+          <p className="lead">{D.hero.lead}</p>
+          <Link className="btn" href={`${base}/statistic/`}>{D.hero.results}</Link>
         </div>
-      </div>
-      <div className="ticker" aria-hidden="true"><div className="tape">{tape}{tape}</div></div>
+      </section>
 
-      <section id="overview"><div className="wrap center overview reveal">
-        <span className="pill">{D.overview.pill}</span>
+      <section id="overview" className="sec"><div className="overview">
         <h2>TISC – Thailand Intercollegiate Stock Challenge</h2>
+        <div className="rule" />
         {D.overview.p.map((p, i) => <p key={i}>{p}</p>)}
-        <div className="stats">
-          {[[STATS.applicants, D.overview.applicants], [STATS.teams, D.overview.teams], [STATS.universities, D.overview.unis]].map(([n, l]) => (
-            <div className="stat" key={l}><b data-count={n}>{fmt(n)}</b><span>{l}</span></div>
-          ))}
-          <div className="stat"><b className="o">Track A&amp;B</b><span>{D.overview.tracks}</span></div>
-        </div>
       </div></section>
 
-      <section id="tracks" className="cream"><div className="wrap">
-        <div className="center reveal">
-          <span className="pill">{D.tracks.pill}</span>
+      <section id="tracks" className="sec cream"><div className="inner">
+        <div className="head">
           <h2>{D.tracks.title}</h2>
-          <p className="sub">{D.tracks.sub}</p>
+          <p>{D.tracks.sub}</p>
         </div>
         <div className="tracks">
           {["A", "B"].map(k => (
-            <article key={k} className={`track reveal${k === "B" ? " b" : ""}`}><span className="tag">TRACK {k}</span>
-              <h3>{D.tracks[k].name}</h3><p>{D.tracks[k].desc}</p></article>
+            <article key={k} className={`track${k === "B" ? " b" : ""}`}>
+              <div className="track-img">
+                <img src={`/assets/gallery/${GALLERY[k][0]}.jpg`} alt={`Track ${k}`} loading="lazy" />
+                <span className="tag">TRACK {k}</span>
+              </div>
+              <div className="track-body">
+                <b>{k}</b>
+                <div><h3>{D.tracks[k].name}</h3><p>{D.tracks[k].desc}</p></div>
+              </div>
+            </article>
           ))}
         </div>
-        <div className="steps reveal">
-          {D.tracks.steps.map(([s, t], i) => <div key={s}><b>0{i + 1}</b><strong>{s}</strong><span>{t}</span></div>)}
-        </div>
+        <ol className="steps">
+          {D.tracks.steps.map(([s, t], i) => <li key={s}><b>0{i + 1}</b><strong>{s}</strong><span>{t}</span></li>)}
+        </ol>
       </div></section>
 
-      <section id="gallery" className="dark"><div className="wrap">
-        <div className="reveal">
-          <span className="pill o">{D.gallery.pill}</span>
+      <section id="gallery" className="sec dark"><div className="gallery">
+        <div className="head">
           <h2>{D.gallery.title}</h2>
-          <p className="sub">{D.gallery.sub}</p>
+          <p>{D.gallery.sub}</p>
         </div>
         <Gallery lang={lang} />
       </div></section>
 
-      <section id="organizers"><div className="wrap center">
-        <div className="reveal">
-          <span className="pill">{D.org.pill}</span>
+      <section id="organizers" className="sec">
+        <div className="head">
           <h2>{D.org.title}</h2>
-          <p className="sub">{D.org.sub}</p>
+          <p>{D.org.sub}</p>
         </div>
-        <div className="grid2">
-          <div className="card reveal"><img src="/assets/kic-logo.png" alt="Kasetsart Investment Club" /><h3>KIC</h3>
-            <p><b>Kasetsart Investment Club</b><br />{D.org.ku}</p><Link className="btn" href={`${base}/our-team/#kic`}>{D.org.visit}</Link></div>
-          <div className="card reveal"><img src="/assets/ibmp-logo.png" alt="IBMP Investment Club" className="wide" /><h3>IBMPIC</h3>
-            <p><b>IBMP Investment Club</b><br />{D.org.tu}</p><Link className="btn o" href={`${base}/our-team/#ibmp`}>{D.org.visit}</Link></div>
+        <div className="orgs">
+          {[["kic", "kic-logo.png", "KIC", "Kasetsart Investment Club", D.org.ku, ""],
+            ["ibmp", "ibmp-logo.png", "IBMPIC", "IBMP Investment Club", D.org.tu, "wide"]].map(([id, logo, short, full, uni, cls]) => (
+            <div className="org" key={id}>
+              <div className="org-logo"><img src={`/assets/${logo}`} alt={full} className={cls || undefined} /></div>
+              <h3>{short}</h3>
+              <p>{full}<br />{uni}</p>
+              <Link className="ulink" href={`${base}/our-team/#${id}`}>{D.org.visit} →</Link>
+            </div>
+          ))}
         </div>
-      </div></section>
+      </section>
 
-      <section id="sponsors" className="cream"><div className="wrap center">
-        <div className="reveal"><span className="pill">{D.spons.pill}</span><h2>{D.spons.title}</h2></div>
+      <section id="sponsors" className="sec spons"><div className="inner">
+        <h2 className="h2">{D.spons.title}</h2>
         <h3 className="tier">{D.spons.main}</h3>
-        <div className="spons main">{SPONSORS_MAIN.map(Logo)}</div>
+        <div className="sp-main">{SPONSORS_MAIN.map(Logo)}</div>
+        <div className="divider" />
         <h3 className="tier">{D.spons.rest}</h3>
-        <div className="spons">{SPONSORS.map(Logo)}</div>
+        <div className="sp-rest">{SPONSORS.map(Logo)}</div>
       </div></section>
     </>
   );
