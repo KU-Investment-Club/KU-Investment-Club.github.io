@@ -1,4 +1,4 @@
-import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import { ACTS, LINKS } from "@/lib/data";
 import { getDict, t } from "@/lib/i18n";
 
@@ -9,51 +9,41 @@ export async function generateMetadata({ params }) {
 
 export default async function OurTeam({ params }) {
   const { lang } = await params;
-  const D = getDict(lang), d = D.team;
+  const d = getDict(lang).team;
+  const clubs = [
+    { id: "kic", name: "Kasetsart Investment Club", ...d.kic, href: LINKS.kic, cta: "LinkedIn KIC ↗", logo: "kic-logo.png" },
+    { id: "ibmp", name: "IBMP Investment Club", ...d.ibmp, href: LINKS.ibmp, cta: "LinkedIn IBMPIC ↗", logo: "ibmp-logo.png", rev: true },
+  ];
 
   return (
     <>
-      <div className="phead"><div className="wrap">
-        <div className="crumb"><Link href={`/${lang}/`}>Home</Link> / Our Team</div>
-        <h1>{d.title}<i>.</i></h1>
-        <span className="hl">{d.hl}</span>
-        <p className="sub">{d.sub}</p>
-        <div className="tabs"><a href="#kic">KIC</a><a href="#ibmp">IBMP</a><a href="#recap">Highlights</a></div>
-      </div></div>
+      <PageHero img="/assets/gallery/o2.jpg" title={d.title} hl={d.hl} sub={d.sub} />
+      <div className="tabs"><a href="#kic">KIC</a><a href="#ibmp">IBMP</a><a href="#recap">Highlights</a></div>
 
-      <section id="kic"><div className="wrap club">
-        <div>
-          <span className="pill">{d.kic.pill}</span>
-          <h2>Kasetsart Investment Club</h2>
-          <p className="about">{d.kic.about}</p>
-          <a className="btn" target="_blank" rel="noopener" href={LINKS.kic}>LinkedIn KIC ↗</a>
+      {clubs.map(c => (
+        <section id={c.id} key={c.id} className={`club${c.rev ? " rev cream" : ""}`}><div className="club-in">
+          <div className="club-txt">
+            <div className="kicker">{c.pill}</div>
+            <h2>{c.name}</h2>
+            <p>{c.about}</p>
+            <a className="btn navy" target="_blank" rel="noopener" href={c.href}>{c.cta}</a>
+          </div>
+          <div className="club-logo"><img src={`/assets/${c.logo}`} alt={`${c.name} logo`} className={c.rev ? "wide" : undefined} /></div>
+        </div></section>
+      ))}
+
+      <section id="recap" className="sec recap"><div className="inner">
+        <div className="head">
+          <h2>{d.recap.title}</h2>
+          <p>{d.recap.sub}</p>
         </div>
-        <div className="logo"><img src="/assets/kic-logo.png" alt="Kasetsart Investment Club logo" /></div>
-      </div></section>
-
-      <section id="ibmp" className="cream"><div className="wrap club">
-        <div>
-          <span className="pill">{d.ibmp.pill}</span>
-          <h2>IBMP Investment Club</h2>
-          <p className="about">{d.ibmp.about}</p>
-          <a className="btn" target="_blank" rel="noopener" href={LINKS.ibmp}>LinkedIn IBMPIC ↗</a>
-        </div>
-        <div className="logo"><img src="/assets/ibmp-logo.png" alt="IBMP Investment Club logo" className="wide" /></div>
-      </div></section>
-
-      <section id="recap"><div className="wrap">
-        <span className="pill">{d.recap.pill}</span>
-        <h2>{d.recap.title}</h2>
-        <p className="sub">{d.recap.sub}</p>
         <div className="acts">
           {ACTS.map(a => (
-            <article className="act reveal" key={a.img}>
+            <article className="act" key={a.img}>
               <div className="act-img"><img src={`/assets/activities/${a.img}`} alt={t(a.title, lang)} loading="lazy" /></div>
-              <div className="act-body">
-                <span className={`pill${a.club === "IBMPIC" ? " o" : ""}`}>{a.club}</span>
-                <h3>{t(a.title, lang)}</h3>
-                <p>{t(a.desc, lang)}</p>
-              </div>
+              <div className="kicker">{a.club}</div>
+              <h3>{t(a.title, lang)}</h3>
+              <p>{t(a.desc, lang)}</p>
             </article>
           ))}
         </div>

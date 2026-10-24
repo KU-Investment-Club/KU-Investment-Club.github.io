@@ -4,21 +4,21 @@ import { LINKS } from "@/lib/data";
 export default function Footer({ lang }) {
   const d = getDict(lang).footer;
   const cards = [
-    ["pill o", d.tiscPill, <>Thailand Intercollegiate<br />Stock Challenge</>, LINKS.tisc, d.tisc, "tisc-logo.png", "TISC"],
-    ["pill", "KIC CLUB", <>KIC<br />Kasetsart Investment Club</>, LINKS.kic, d.kic, "kic-logo.png", "Kasetsart Investment Club"],
-    ["pill o", "IBMP CLUB", <>IBMP<br />Investment Club</>, LINKS.ibmp, d.ibmp, "ibmp-logo.png", "IBMP Investment Club"],
+    [d.tiscPill, "Thailand Intercollegiate Stock Challenge", LINKS.tisc, d.tisc, "tisc-logo.png"],
+    ["KIC CLUB", "Kasetsart Investment Club", LINKS.kic, d.kic, "kic-logo.png"],
+    ["IBMP CLUB", "IBMP Investment Club", LINKS.ibmp, d.ibmp, "ibmp-logo.png"],
   ];
   return (
-    <footer id="contact"><div className="wrap">
+    <footer id="contact"><div className="inner">
       <h2>{d.title}</h2>
       <div className="fc">
-        {cards.map(([cls, pill, name, href, label, logo, alt]) => (
+        {cards.map(([tag, name, href, label, logo]) => (
           <div className="fcard" key={href}>
-            <div className="fhead">
-              <div><span className={cls}>{pill}</span><h3>{name}</h3></div>
-              <img className="flogo" src={`/assets/${logo}`} alt={alt} loading="lazy" />
-            </div>
-            <a target="_blank" rel="noopener" href={href}><b>in</b>{label}</a></div>
+            <div className="flogo"><img src={`/assets/${logo}`} alt="" loading="lazy" className={logo === "kic-logo.png" ? "tall" : undefined} /></div>
+            <small>{tag}</small>
+            <h3>{name}</h3>
+            <a target="_blank" rel="noopener" href={href}>{label} ↗</a>
+          </div>
         ))}
       </div>
       <div className="copy"><span>{d.rights}</span><span>Organized by KIC × IBMPIC · <a href="https://tiscofficial.com/">tiscofficial.com</a></span></div>

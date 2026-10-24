@@ -2,7 +2,6 @@ import { Prompt } from "next/font/google";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import PageFx from "@/components/PageFx";
 import NavProgress from "@/components/NavProgress";
 import { LANGS, isLang, getDict } from "@/lib/i18n";
 import "../globals.css";
@@ -43,8 +42,6 @@ export default async function LangLayout({ children, params }) {
         <Header lang={lang} />
         <main id="main">{children}</main>
         <Footer lang={lang} />
-        <a className="totop" href="#top" aria-label={d.toTop}>↑</a>
-        <PageFx />
       </body>
     </html>
   );
