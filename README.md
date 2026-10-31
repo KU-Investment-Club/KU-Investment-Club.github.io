@@ -30,6 +30,13 @@ npm start        # เปิดดู out/ ที่ build แล้ว
 โฟลเดอร์ต้นฉบับ (`บรรยากาศ/`, `Pic_TrackA/`, `Pic_TrackB/`, `Logo_Spon/`, `Logoชมรม/`) ไม่ถูกนำขึ้นเว็บ
 
 ## Deploy (GitHub Pages)
+
 push ขึ้น `main` แล้ว GitHub Actions (`.github/workflows/deploy.yml`) จะ build และ deploy ให้อัตโนมัติ
 ครั้งแรกต้องตั้งค่า: repo > **Settings > Pages > Source = GitHub Actions** — ไฟล์ `public/CNAME` ตั้งโดเมน tiscofficial.com ไว้แล้ว
 (Vercel / Netlify / Cloudflare Pages ก็ได้: build command `npm run build`, output `out`)
+
+## Certificate 2026
+
+หน้า certificate เปิดที่ `https://tiscofficial.com/en/certificate2026/` โดยใช้ไฟล์ `public/en/certificate2026/index.html` และ `config.js` ที่คัดลอกจากโปรเจกต์ `tisc-certificate` และฝัง Apps Script เดิมผ่าน iframe จึงคง URL ของ TISC ไว้ใน address bar
+
+หากแก้หน้าในโปรเจกต์ `tisc-certificate` ให้คัดลอกสองไฟล์นี้มาอัปเดตในเว็บหลักด้วย หากเปลี่ยน Apps Script deployment ให้อัปเดต URL `/exec` ใน `public/en/certificate2026/config.js` แล้ว build และ deploy ใหม่
